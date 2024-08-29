@@ -40,8 +40,7 @@ class IP_API {
         } catch (IOException | InterruptedException e) {
             if(e instanceof java.net.ConnectException)
             {
-                System.out.println("cant connect :(");
-                System.exit(-1);
+                return "Connection Err";
             }
             throw new RuntimeException(e);
         }
@@ -75,7 +74,10 @@ class USER_INTERFACE extends JFrame {
             displayArea.setText(help_msg);
         else {
             String info = IP_API.fetchIP(this.ip_input.getText());
-            displayArea.setText(info);
+            if(info.equals("Connection Err"))
+                displayArea.setText("Cant Connect");
+            else
+                displayArea.setText(info);
         }
     }
 
